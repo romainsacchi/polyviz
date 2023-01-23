@@ -2,10 +2,10 @@
 Violin plot for a given activity and method.
 """
 
-import pandas as pd
-from d3blocks import D3Blocks
 import bw2data
+import pandas as pd
 from bw2calc.monte_carlo import MultiMonteCarlo
+from d3blocks import D3Blocks
 
 from .utils import check_filepath
 

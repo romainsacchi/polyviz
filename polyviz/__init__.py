@@ -12,9 +12,9 @@ __all__ = (
     "treemap",
 )
 
-from .sankey import sankey
 from .chord import chord
-from .force import force
-from .violin import violin
 from .choro import choro
+from .force import force
+from .sankey import sankey
 from .treemap import treemap
+from .violin import violin

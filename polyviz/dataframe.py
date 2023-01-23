@@ -7,13 +7,11 @@ from collections import defaultdict
 from io import StringIO
 from typing import List
 
-import pandas as pd
-import numpy as np
 import bw2data
+import numpy as np
+import pandas as pd
 
-
-from .utils import calculate_lcia_score, get_region_definitions, get_gdp_per_country
-
+from .utils import calculate_lcia_score, get_gdp_per_country, get_region_definitions
 
 
 def format_supply_chain_dataframe(
@@ -40,7 +38,7 @@ def format_supply_chain_dataframe(
                     f"{name} ({location})" if location else name,
                     f"{name} ({location})" if level == 0 else last_supplier[level - 1],
                     impact,
-                    level
+                    level,
                 ]
             )
         else:
@@ -48,9 +46,11 @@ def format_supply_chain_dataframe(
                 list_res.append(
                     [
                         f"{name} ({location})" if location else name,
-                        f"{name} ({location})" if level == 0 else last_supplier[level - 1],
+                        f"{name} ({location})"
+                        if level == 0
+                        else last_supplier[level - 1],
                         amount,
-                        level
+                        level,
                     ]
                 )
 
@@ -74,9 +74,15 @@ def format_supply_chain_dataframe(
     if not flow_type:
         for level in dataframe["level"].unique():
             for i, row in dataframe.loc[dataframe["level"] == level].iterrows():
-                if row["source"] not in ["loss", "activities below cutoff", "emissions"] and level + 1 in dataframe["level"].unique():
+                if (
+                    row["source"]
+                    not in ["loss", "activities below cutoff", "emissions"]
+                    and level + 1 in dataframe["level"].unique()
+                ):
                     sum_emissions = row["weight"]
-                    downstream_emissions = find_downstream_emissions(dataframe, row["source"], level)
+                    downstream_emissions = find_downstream_emissions(
+                        dataframe, row["source"], level
+                    )
 
                     if downstream_emissions < sum_emissions:
                         # insert a row with the missing emissions
@@ -90,10 +96,10 @@ def format_supply_chain_dataframe(
                                         "weight": sum_emissions - downstream_emissions,
                                         "level": level + 1,
                                     },
-                                    index = [0]
+                                    index=[0],
                                 ),
                             ],
-                            ignore_index=True
+                            ignore_index=True,
                         )
 
         # reorder by level and target
@@ -104,14 +110,14 @@ def format_supply_chain_dataframe(
 
     return dataframe
 
+
 def find_downstream_emissions(
-        dataframe: pd.DataFrame,
-        target: str,
-        level: int,
+    dataframe: pd.DataFrame,
+    target: str,
+    level: int,
 ):
     return dataframe.loc[
-        (dataframe["level"] == level + 1)
-        & (dataframe["target"] == target),
+        (dataframe["level"] == level + 1) & (dataframe["target"] == target),
         "weight",
     ].sum()
 
@@ -123,13 +129,16 @@ def add_country_column(dataframe: pd.DataFrame) -> pd.DataFrame:
     :return: a pandas dataframe with a new column
     """
     # extract the country from the `source` column
-    dataframe["country"] = dataframe["source"].apply(lambda x: x.split("(")[-1].strip(")"), 1)
+    dataframe["country"] = dataframe["source"].apply(
+        lambda x: x.split("(")[-1].strip(")"), 1
+    )
     return dataframe
 
+
 def get_geo_distribution_of_impacts(
-        activity: bw2data.backends.peewee.proxies.Activity,
-        method: tuple,
-        cutoff: float = 0.0001,
+    activity: bw2data.backends.peewee.proxies.Activity,
+    method: tuple,
+    cutoff: float = 0.0001,
 ):
     """
     Get a pandas dataframe with the distribution of impacts per country.
@@ -165,12 +174,15 @@ def get_geo_distribution_of_impacts(
 
     # aggregate the rows for which the weight is less than 1% of the total weight
     # and rename the country as "other"
-    dataframe.loc[dataframe["weight"] < dataframe["weight"].sum() * 0.01, "country"] = "other"
+    dataframe.loc[
+        dataframe["weight"] < dataframe["weight"].sum() * 0.01, "country"
+    ] = "other"
 
     # create a column "name" which concatenates "country" and "activity"
     dataframe["name"] = dataframe["country"] + "." + dataframe["activity"]
 
     return dataframe
+
 
 def distribute_region_impacts(dataframe, cutoff):
     """
@@ -205,9 +217,11 @@ def distribute_region_impacts(dataframe, cutoff):
                             pd.DataFrame(
                                 {
                                     "country": country,
-                                    "weight": row["weight"] * gdp.get(country, 0) / gdp_sum,
+                                    "weight": row["weight"]
+                                    * gdp.get(country, 0)
+                                    / gdp_sum,
                                 },
-                                index = [0]
+                                index=[0],
                             ),
                         ]
                     )
@@ -218,6 +232,5 @@ def distribute_region_impacts(dataframe, cutoff):
     # remove the rows with a weight inferior to 1%
     # of the sum
     dataframe = dataframe.loc[dataframe["weight"] > dataframe["weight"].sum() * cutoff]
-
 
     return dataframe

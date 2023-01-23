@@ -2,11 +2,11 @@
 Module that contains code to produce a Choropleth diagram.
 """
 
-from d3blocks import D3Blocks
 import bw2data
+from d3blocks import D3Blocks
 
-from .utils import get_geo_distribution_of_impacts_for_choro_graph, check_filepath
 from .dataframe import distribute_region_impacts
+from .utils import check_filepath, get_geo_distribution_of_impacts_for_choro_graph
 
 
 def choro(
@@ -41,7 +41,9 @@ def choro(
     # fetch unit of method
     unit = bw2data.Method(method).metadata["unit"]
 
-    dataframe = get_geo_distribution_of_impacts_for_choro_graph(activity, method, cutoff)
+    dataframe = get_geo_distribution_of_impacts_for_choro_graph(
+        activity, method, cutoff
+    )
     dataframe = distribute_region_impacts(dataframe, cutoff=cutoff)
     dataframe["unit"] = unit
 

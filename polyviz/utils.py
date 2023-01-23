@@ -5,18 +5,19 @@ Utility functions for polyviz.
 from collections import defaultdict
 from io import StringIO
 from pathlib import Path
-import yaml
 
+import bw2calc
+import bw2data
 import numpy as np
 import pandas as pd
-import bw2data
-import bw2calc
+import yaml
+
 
 def calculate_supply_chain(
-        activity: bw2data.backends.peewee.proxies.Activity,
-        method: tuple,
-        level: int = 3,
-        cutoff: float = 0.01,
+    activity: bw2data.backends.peewee.proxies.Activity,
+    method: tuple,
+    level: int = 3,
+    cutoff: float = 0.01,
 ) -> [StringIO, int]:
     """
     Calculate the supply chain of an activity.
@@ -51,6 +52,7 @@ def calculate_supply_chain(
 
     return results, amount
 
+
 def calculate_lcia_score(
     activity: bw2data.backends.peewee.proxies.Activity,
     method: tuple,
@@ -76,6 +78,7 @@ def calculate_lcia_score(
 
     return lca.score, c_matrix, rev
 
+
 def make_name_safe(filename: str) -> str:
     """
     Make a filename safe for saving.
@@ -86,6 +89,7 @@ def make_name_safe(filename: str) -> str:
     return "".join(
         [c for c in filename if c.isalpha() or c.isdigit() or c == " "]
     ).rstrip()
+
 
 def identify_waste_process(activity: bw2data.backends.peewee.proxies.Activity) -> bool:
     """
@@ -101,9 +105,9 @@ def identify_waste_process(activity: bw2data.backends.peewee.proxies.Activity) -
 
 
 def get_geo_distribution_of_impacts_for_choro_graph(
-        activity: bw2data.backends.peewee.proxies.Activity,
-        method: tuple,
-        cutoff: float = 0.0001,
+    activity: bw2data.backends.peewee.proxies.Activity,
+    method: tuple,
+    cutoff: float = 0.0001,
 ) -> pd.DataFrame:
     """
     Get the geographic distribution of impacts for a given activity and method.
@@ -125,7 +129,9 @@ def get_geo_distribution_of_impacts_for_choro_graph(
     results = defaultdict(float)
 
     for nz_idx in np.argwhere(c_matrix > cutoff * lca.score):
-        results[bw2data.get_activity(rev[nz_idx[1]])["location"]] += c_matrix[0, nz_idx[1]]
+        results[bw2data.get_activity(rev[nz_idx[1]])["location"]] += c_matrix[
+            0, nz_idx[1]
+        ]
 
     dataframe = pd.DataFrame.from_dict(results, orient="index", columns=["weight"])
 
@@ -134,6 +140,7 @@ def get_geo_distribution_of_impacts_for_choro_graph(
     dataframe = dataframe.reset_index().rename(columns={"index": "country"})
 
     return dataframe
+
 
 def check_filepath(filepath: str, title: str, graph_type: str) -> Path:
     """
@@ -152,6 +159,7 @@ def check_filepath(filepath: str, title: str, graph_type: str) -> Path:
         filepath.parent.mkdir(parents=True)
 
     return filepath
+
 
 def recursive_calculation(
     activity,
@@ -217,8 +225,11 @@ def recursive_calculation(
             )
             return results
 
-
-    if (activity["name"], activity["reference product"], activity["location"]) == previous_activity:
+    if (
+        activity["name"],
+        activity["reference product"],
+        activity["location"],
+    ) == previous_activity:
         results.append(
             [
                 level,
@@ -255,7 +266,11 @@ def recursive_calculation(
                 lca_obj=lca_obj,
                 total_score=total_score,
                 level=level + 1,
-                previous_activity=(activity["name"], activity["reference product"], activity["location"]),
+                previous_activity=(
+                    activity["name"],
+                    activity["reference product"],
+                    activity["location"],
+                ),
                 results=results,
             )
 
