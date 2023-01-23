@@ -2,7 +2,7 @@ Metadata-Version: 2.1
 Name: polyviz
 Version: 1.0.0
 Summary: Interface between Brightway2 and D3.js
-Home-page: https://github.com/romainsacchi/polygraphx
+Home-page: https://github.com/romainsacchi/polyviz
 Author: Romain Sacchi <romain.sacchi@psi.ch>
 License: BSD 3-Clause License
         
@@ -52,7 +52,7 @@ Classifier: Topic :: Scientific/Engineering :: Visualization
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
-# ``polygraphx``: An interface between ``brightway2`` and [D3.js](https://d3js.org/)
+# ``polyviz``: An interface between ``brightway2`` and [D3.js](https://d3js.org/)
 
 This is a Python package that provides an interface between the
 [`brightway2`](https://brightway.dev) LCA framework and the [`D3.js`](https://d3js.org) JavaScript library.
@@ -62,7 +62,7 @@ interactive visualizations of LCA results.
 This interface relies to some extent on [``d3blocks``](https://github.com/d3blocks/d3blocks), a Python package developed
 by [Erdogan Taskesen](https://github.com/erdogant).
 
-With ``polygraphx``, the following visualizations are possible:
+With ``polyviz``, the following visualizations are possible:
 * Interactive Sankey diagrams
 * Force-directed graphs
 * Chord diagrams
@@ -72,7 +72,7 @@ With ``polygraphx``, the following visualizations are possible:
 
 ## Installation
 
-Install ``polygraphx`` from PyPI:
+Install ``polyviz`` from PyPI:
 
 ```bash
 pip install polyviz
@@ -95,4 +95,4 @@ See [contributing](https://github.com/romainsacchi/carculator/blob/master/CONTRI
 
 ## License
 
-[BSD-3-Clause](https://github.com/romainsacchi/polygraphx/blob/master/LICENSE).
+[BSD-3-Clause](https://github.com/romainsacchi/polyviz/blob/master/LICENSE).

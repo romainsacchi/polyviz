@@ -46,7 +46,7 @@ setup(
         "bw2calc",
         "d3blocks @ git+https://github.com/romainsacchi/d3blocks.git",
     ],
-    url="https://github.com/romainsacchi/polygraphx",
+    url="https://github.com/romainsacchi/polyviz",
     description="Interface between Brightway2 and D3.js",
     long_description_content_type="text/markdown",
     long_description=README,
