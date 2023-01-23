@@ -2,8 +2,9 @@
 This module contains the code to generate a Sankey diagram for a given activity and method.
 """
 
-from d3blocks import D3Blocks
 import bw2data
+from d3blocks import D3Blocks
+
 from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath
 

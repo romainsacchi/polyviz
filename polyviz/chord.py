@@ -2,8 +2,8 @@
 Modules contains functions to generate a Chord diagram.
 """
 
-from d3blocks import D3Blocks
 import bw2data
+from d3blocks import D3Blocks
 
 from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath

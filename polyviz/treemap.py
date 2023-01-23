@@ -2,11 +2,11 @@
 This module contains the function to generate a treemap.
 """
 
-from d3blocks import D3Blocks
 import bw2data
+from d3blocks import D3Blocks
 
-from .utils import check_filepath
 from .dataframe import get_geo_distribution_of_impacts
+from .utils import check_filepath
 
 
 def treemap(
