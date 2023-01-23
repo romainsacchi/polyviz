@@ -5,6 +5,10 @@ This is a Python package that provides an interface between the
 It is designed to be used in Jupyter notebooks, and provides
 interactive visualizations of LCA results.
 
+<div style="text-align:center">
+<img src="https://github.com/romainsacchi/polyviz/raw/master/docs/chord_sample.png" height="300"/>
+</div>
+
 This interface extends the capabilities of  [``d3blocks``](https://github.com/d3blocks/d3blocks), a Python package developed
 by [Erdogan Taskesen](https://github.com/erdogant).
 
