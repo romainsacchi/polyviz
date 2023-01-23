@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+polyviz.egg-info/PKG-INFO
+polyviz.egg-info/SOURCES.txt
+polyviz.egg-info/dependency_links.txt
+polyviz.egg-info/requires.txt
+polyviz.egg-info/top_level.txt

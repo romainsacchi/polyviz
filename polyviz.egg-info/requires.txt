@@ -1,0 +1,5 @@
+pandas
+numpy
+d3blocks
+bw2data
+bw2calc
