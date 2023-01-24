@@ -31,7 +31,7 @@ def choro(
     """
 
     title = title or f"{activity['name']} ({activity['unit']}, {activity['location']})"
-    filepath = check_filepath(filepath, title, "choro")
+    filepath = check_filepath(filepath, title, "choro", method)
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(

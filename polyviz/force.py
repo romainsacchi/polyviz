@@ -34,7 +34,7 @@ def force(
         raise ValueError("The level of recursion should be at least 2.")
 
     title = title or f"{activity['name']} ({activity['unit']}, {activity['location']})"
-    filepath = check_filepath(filepath, title, "force")
+    filepath = check_filepath(filepath, title, "force", method)
 
     result, amount = calculate_supply_chain(activity, method, level, cutoff)
 
@@ -44,7 +44,7 @@ def force(
 
     # dataframe should at least be 3 rows
     if len(dataframe) < 3:
-        raise ValueError("No enough data to generate a Chord diagram.")
+        raise ValueError("No enough data to generate a Force-directed diagram.")
 
     # Create a new D3Blocks object
     d3_graph = D3Blocks()

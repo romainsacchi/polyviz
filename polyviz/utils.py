@@ -142,16 +142,25 @@ def get_geo_distribution_of_impacts_for_choro_graph(
     return dataframe
 
 
-def check_filepath(filepath: str, title: str, graph_type: str) -> Path:
+def check_filepath(
+        filepath: str,
+        title: str,
+        graph_type: str,
+        method: tuple = None,
+        flow_type: str = None
+) -> Path:
     """
     Check if a filepath exists.
     :param filepath: a filepath
     :param title: a title
     :param graph_type: a graph type
+    :param method: an LCIA method
+    :param flow_type: a flow type
     :return: filepath
     """
     if filepath is None:
-        filepath = Path.cwd() / f"{make_name_safe(title)} {graph_type}.html"
+        method = method or flow_type
+        filepath = Path.cwd() / f"{make_name_safe(title)} {make_name_safe(''.join(method))} {graph_type}.html"
     else:
         filepath = Path(filepath)
 

@@ -36,7 +36,7 @@ def sankey(
         raise ValueError("The level of recursion should be at least 2.")
 
     title = title or f"{activity['name']} ({activity['unit']}, {activity['location']})"
-    filepath = check_filepath(filepath, title, "sankey")
+    filepath = check_filepath(filepath, title, "sankey", method, flow_type)
 
     result, amount = calculate_supply_chain(activity, method, level, cutoff)
 

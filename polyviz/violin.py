@@ -49,7 +49,7 @@ def violin(
 
     title = title or make_name(activities)
 
-    filepath = check_filepath(filepath, title, "violin")
+    filepath = check_filepath(filepath, title, "violin", method)
 
     res = MultiMonteCarlo(
         [{act: 1} for act in activities],
