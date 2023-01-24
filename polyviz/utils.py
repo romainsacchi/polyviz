@@ -143,11 +143,11 @@ def get_geo_distribution_of_impacts_for_choro_graph(
 
 
 def check_filepath(
-        filepath: str,
-        title: str,
-        graph_type: str,
-        method: tuple = None,
-        flow_type: str = None
+    filepath: str,
+    title: str,
+    graph_type: str,
+    method: tuple = None,
+    flow_type: str = None,
 ) -> Path:
     """
     Check if a filepath exists.
@@ -160,7 +160,10 @@ def check_filepath(
     """
     if filepath is None:
         method = method or flow_type
-        filepath = Path.cwd() / f"{make_name_safe(title)} {make_name_safe(''.join(method))} {graph_type}.html"
+        filepath = (
+            Path.cwd()
+            / f"{make_name_safe(title)} {make_name_safe(''.join(method))} {graph_type}.html"
+        )
     else:
         filepath = Path(filepath)
 
