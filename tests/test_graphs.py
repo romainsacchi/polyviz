@@ -1,5 +1,3 @@
-import bw2analyzer
-import bw2calc
 import bw2data
 import bw2io
 
