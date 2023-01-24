@@ -42,6 +42,7 @@ setup(
     install_requires=[
         "pandas",
         "numpy<=1.23.1",
+        "bw2io<=0.8.7",
         "bw2data<=3.6.5",
         "bw2calc<=1.8.1",
         "d3blocks @ git+https://github.com/romainsacchi/d3blocks.git",
