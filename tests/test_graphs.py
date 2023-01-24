@@ -18,7 +18,6 @@ method = ("IPCC", "simple")
 bw2data.Method(method).metadata["unit"] = "kg CO2-eq."
 
 
-
 def test_force():
     act = bw2data.Database("Mobility example").random()
     force(activity=act, cutoff=0.001, method=method, level=2)
