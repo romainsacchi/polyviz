@@ -62,7 +62,7 @@ flow_type = "kilowatt hour"
 sankey(activity=act, flow_type=flow_type)
 ```
 
-Other examples are available in the [examples](github.com/romainsacchi/polyviz/tree/master/examples) folder.
+Other examples are available in the [examples](github.com/romainsacchi/polyviz/tree/main/examples/examples.ipynb) notebook.
 
 ## Support
 
