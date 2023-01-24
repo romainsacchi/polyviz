@@ -61,7 +61,8 @@ def sankey(
 
     # dataframe should at least be 3 rows
     if len(dataframe) < 3:
-        raise ValueError("No enough data to generate a Sankey diagram.")
+        print("Not enough data to generate a Sankey diagram.")
+        return
 
     # Create a new D3Blocks object
     d3_graph = D3Blocks()
