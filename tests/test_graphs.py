@@ -20,18 +20,18 @@ bw2data.Method(method).metadata["unit"] = "kg CO2-eq."
 
 def test_sankey():
     act = bw2data.Database("Mobility example").random()
-    sankey(activity=act, cutoff=0.001, method=method)
+    sankey(activity=act, cutoff=0.001, method=method, level=2)
     sankey(activity=act, flow_type="kilogram")
 
 
 def test_chord():
     act = bw2data.Database("Mobility example").random()
-    chord(activity=act, cutoff=0.001, method=method)
+    chord(activity=act, cutoff=0.001, method=method, level=2)
 
 
 def test_force():
     act = bw2data.Database("Mobility example").random()
-    force(activity=act, cutoff=0.001, method=method)
+    force(activity=act, cutoff=0.001, method=method, level=2)
 
 
 def test_tree():
@@ -41,7 +41,6 @@ def test_tree():
 
 def test_violin():
     acts = [bw2data.Database("Mobility example").random() for _ in range(5)]
-
     violin(activities=acts, method=method, iterations=5)
 
 
