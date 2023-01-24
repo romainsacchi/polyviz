@@ -18,6 +18,7 @@ bw2data.Method(method).metadata["unit"] = "kg CO2-eq."
 
 act = bw2data.get_activity(("Mobility example", "Electricity"))
 
+
 def test_force():
     force(activity=act, cutoff=0.001, method=method, level=2)
 
