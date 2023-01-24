@@ -16,17 +16,16 @@ bw2io.add_example_database()
 method = ("IPCC", "simple")
 bw2data.Method(method).metadata["unit"] = "kg CO2-eq."
 
+act = bw2data.get_activity(("Mobility example", "Electricity"))
 
 def test_force():
-    act = bw2data.Database("Mobility example").random()
     force(activity=act, cutoff=0.001, method=method, level=2)
 
 
 def test_violin():
-    acts = [bw2data.Database("Mobility example").random() for _ in range(5)]
+    acts = [act, act]
     violin(activities=acts, method=method, iterations=5)
 
 
 def choropleth():
-    act = bw2data.Database("Mobility example").random()
     choro(activity=act, cutoff=0.001, method=method)
