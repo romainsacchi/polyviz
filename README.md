@@ -34,6 +34,12 @@ Install ``polyviz`` from PyPI:
 pip install polyviz
 ```
 
+and you will need to install a forked version of ``d3blocks``:
+
+```bash
+pip install git+https://github.com/romainsacchi/d3blocks.git
+```
+
 Usage
 -----
 
