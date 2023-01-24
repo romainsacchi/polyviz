@@ -48,7 +48,7 @@ setup(
         "country_converter",
         "pyyaml",
     ],
-    dependency_links = ['https://github.com/romainsacchi/d3blocks'],
+    dependency_links=["https://github.com/romainsacchi/d3blocks"],
     url="https://github.com/romainsacchi/polyviz",
     description="Interface between Brightway2 and D3.js",
     long_description_content_type="text/markdown",
