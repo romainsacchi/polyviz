@@ -42,8 +42,8 @@ setup(
     install_requires=[
         "pandas",
         "numpy",
-        "bw2data",
-        "bw2calc",
+        "bw2data<=3.6.5",
+        "bw2calc<=1.8.1",
         "d3blocks @ git+https://github.com/romainsacchi/d3blocks.git",
     ],
     url="https://github.com/romainsacchi/polyviz",

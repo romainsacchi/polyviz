@@ -1,5 +1,5 @@
 pandas
 numpy
 git+https://github.com/romainsacchi/d3blocks.git
-bw2data
-bw2calc
+bw2data<=3.6.5
+bw2calc<=1.8.1
