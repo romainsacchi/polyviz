@@ -221,6 +221,8 @@ def recursive_calculation(
         results = []
     elif total_score is None:
         raise ValueError
+    elif total_score == 0:
+        return results
     else:
         lca_obj.redo_lcia({activity: amount})
         if abs(lca_obj.score) <= abs(total_score * cutoff):

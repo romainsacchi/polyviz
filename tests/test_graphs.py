@@ -14,10 +14,7 @@ bw2io.bw2setup()
 bw2io.add_example_database()
 
 method = ("IPCC", "simple")
-
 bw2data.Method(method).metadata["unit"] = "kg CO2-eq."
-
-
 
 def test_force():
     act = bw2data.Database("Mobility example").random()
