@@ -5,7 +5,7 @@ This is a Python package that provides an interface between the
 It is designed to be used in Jupyter notebooks, and provides
 interactive visualizations of LCA results.
 
-<div style="text-align:center">
+<div align="center">
 <img src="https://github.com/romainsacchi/polyviz/raw/main/assets/chord_sample.png" height="300"/>
 </div>
 
