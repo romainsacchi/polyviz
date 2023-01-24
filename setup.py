@@ -46,6 +46,7 @@ setup(
         "bw2data<=3.6.5",
         "bw2calc<=1.8.1",
         "country_converter",
+        "pyyaml",
         "d3blocks @ git+https://github.com/romainsacchi/d3blocks.git",
     ],
     url="https://github.com/romainsacchi/polyviz",
