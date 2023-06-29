@@ -48,7 +48,6 @@ def choro(
     dataframe["unit"] = unit
 
     if len(dataframe) > 0:
-
         # Create a new D3Blocks object
         d3_graph = D3Blocks()
         d3_graph.choro(
