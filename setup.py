@@ -12,7 +12,7 @@ if root_dir:
 this_directory = Path(__file__).parent
 README = (this_directory / "README.md").read_text()
 
-for dirpath, dirnames, filenames in os.walk("carculator"):
+for dirpath, dirnames, filenames in os.walk("polyviz"):
     # Ignore dirnames that start with '.'
     if "__init__.py" in filenames:
         pkg = dirpath.replace(os.path.sep, ".")
@@ -34,7 +34,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="polyviz",
-    version="1.0.0",
+    version="1.0.1",
     packages=packages,
     author="Romain Sacchi <romain.sacchi@psi.ch>",
     license=open("LICENSE").read(),
