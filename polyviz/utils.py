@@ -5,6 +5,7 @@ Utility functions for polyviz.
 from collections import defaultdict
 from io import StringIO
 from pathlib import Path
+from packaging.version import Version
 
 import bw2calc
 import bw2data
@@ -224,6 +225,15 @@ def recursive_calculation(
     elif total_score == 0:
         return results
     else:
+        bw2calc_version = (
+            ".".join(map(str, bw2calc.__version__))
+            if isinstance(bw2calc.__version__, tuple)
+            else bw2calc.__version__
+        )
+        if Version(bw2calc_version) >= Version("2.0.DEV1") and not getattr(
+            lca_obj, "_remapped", False
+        ):
+            lca_obj.remap_inventory_dicts()
         lca_obj.redo_lcia({activity: amount})
         if abs(lca_obj.score) <= abs(total_score * cutoff):
             results.append(
