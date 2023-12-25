@@ -6,6 +6,7 @@ from collections import defaultdict
 from io import StringIO
 from pathlib import Path
 from packaging.version import Version
+from typing import Union
 
 import bw2calc
 import bw2data
@@ -13,9 +14,19 @@ import numpy as np
 import pandas as pd
 import yaml
 
+try:
+    from bw2data.backends.peewee import Activity as PeeweeActivity
+except ImportError:
+    PeeweeActivity = None
+
+try:
+    from bw2data.backends import Activity as BW25Activity
+except ImportError:
+    BW25Activity = None
+
 
 def calculate_supply_chain(
-    activity: bw2data.backends.peewee.proxies.Activity,
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
     level: int = 3,
     cutoff: float = 0.01,
@@ -30,7 +41,7 @@ def calculate_supply_chain(
     """
 
     assert isinstance(
-        activity, bw2data.backends.peewee.proxies.Activity
+        activity, Union[PeeweeActivity, BW25Activity]
     ), "`activity` should be a brightway2 activity."
 
     amount = -1 if identify_waste_process(activity) else 1
@@ -55,7 +66,7 @@ def calculate_supply_chain(
 
 
 def calculate_lcia_score(
-    activity: bw2data.backends.peewee.proxies.Activity,
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
 ) -> float:
     """
@@ -65,7 +76,7 @@ def calculate_lcia_score(
     :return: LCIA score, C matrix, and reverse dictionary
     """
     assert isinstance(
-        activity, bw2data.backends.peewee.proxies.Activity
+        activity, Union[PeeweeActivity, BW25Activity]
     ), "`activity` should be a brightway2 activity."
 
     print("Calculating LCIA score...")
@@ -92,7 +103,7 @@ def make_name_safe(filename: str) -> str:
     ).rstrip()
 
 
-def identify_waste_process(activity: bw2data.backends.peewee.proxies.Activity) -> bool:
+def identify_waste_process(activity: Union[PeeweeActivity, BW25Activity]) -> bool:
     """
     Identify if a process is a waste process.
     :param activity: a brightway2 activity
@@ -106,7 +117,7 @@ def identify_waste_process(activity: bw2data.backends.peewee.proxies.Activity) -
 
 
 def get_geo_distribution_of_impacts_for_choro_graph(
-    activity: bw2data.backends.peewee.proxies.Activity,
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
     cutoff: float = 0.0001,
 ) -> pd.DataFrame:
