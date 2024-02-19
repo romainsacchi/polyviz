@@ -2,9 +2,10 @@
 This module contains the function to generate a treemap.
 """
 
+from typing import Union
+
 import bw2data
 from d3blocks import D3Blocks
-from typing import Union
 
 from .dataframe import get_geo_distribution_of_impacts
 from .utils import check_filepath
@@ -14,10 +15,11 @@ try:
 except ImportError:
     PeeweeActivity = None
 
-try: 
+try:
     from bw2data.backends import Activity as BW25Activity
 except ImportError:
     BW25Activity = None
+
 
 def treemap(
     activity: Union[PeeweeActivity, BW25Activity],

@@ -2,11 +2,12 @@
 Violin plot for a given activity and method.
 """
 
+from typing import Union
+
 import bw2data
 import pandas as pd
 from bw2calc.monte_carlo import MultiMonteCarlo
 from d3blocks import D3Blocks
-from typing import Union
 
 from .utils import check_filepath
 
@@ -15,10 +16,11 @@ try:
 except ImportError:
     PeeweeActivity = None
 
-try: 
+try:
     from bw2data.backends import Activity as BW25Activity
 except ImportError:
     BW25Activity = None
+
 
 def violin(
     activities: list,

@@ -18,10 +18,11 @@ try:
 except ImportError:
     PeeweeActivity = None
 
-try: 
+try:
     from bw2data.backends import Activity as BW25Activity
 except ImportError:
     BW25Activity = None
+
 
 def format_supply_chain_dataframe(
     results: List[List], amount: int = 1, flow_type: str = None
@@ -55,9 +56,11 @@ def format_supply_chain_dataframe(
                 list_res.append(
                     [
                         f"{name} ({location})" if location else name,
-                        f"{name} ({location})"
-                        if level == 0
-                        else last_supplier[level - 1],
+                        (
+                            f"{name} ({location})"
+                            if level == 0
+                            else last_supplier[level - 1]
+                        ),
                         amount,
                         level,
                     ]
@@ -183,9 +186,9 @@ def get_geo_distribution_of_impacts(
 
     # aggregate the rows for which the weight is less than 1% of the total weight
     # and rename the country as "other"
-    dataframe.loc[
-        dataframe["weight"] < dataframe["weight"].sum() * 0.01, "country"
-    ] = "other"
+    dataframe.loc[dataframe["weight"] < dataframe["weight"].sum() * 0.01, "country"] = (
+        "other"
+    )
 
     # create a column "name" which concatenates "country" and "activity"
     dataframe["name"] = dataframe["country"] + "." + dataframe["activity"]
