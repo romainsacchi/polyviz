@@ -5,7 +5,6 @@ Utility functions for polyviz.
 from collections import defaultdict
 from io import StringIO
 from pathlib import Path
-from packaging.version import Version
 from typing import Union
 
 import bw2calc
@@ -13,6 +12,7 @@ import bw2data
 import numpy as np
 import pandas as pd
 import yaml
+from packaging.version import Version
 
 try:
     from bw2data.backends.peewee import Activity as PeeweeActivity

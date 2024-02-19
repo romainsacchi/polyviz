@@ -2,9 +2,10 @@
 Modules contains functions to generate a Chord diagram.
 """
 
+from typing import Union
+
 import bw2data
 from d3blocks import D3Blocks
-from typing import Union
 
 from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath
@@ -14,11 +15,12 @@ try:
 except ImportError:
     PeeweeActivity = None
 
-try: 
+try:
     from bw2data.backends import Activity as BW25Activity
 except ImportError:
     BW25Activity = None
-    
+
+
 def chord(
     activity: Union[PeeweeActivity, BW25Activity],
     method: tuple = None,
