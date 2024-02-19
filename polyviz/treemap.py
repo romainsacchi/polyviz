@@ -45,7 +45,7 @@ def treemap(
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(
-        activity, Union[PeeweeActivity, BW25Activity]
+        activity, (PeeweeActivity, BW25Activity)
     ), "`activity` should be a brightway2 activity."
 
     # fetch unit of method
