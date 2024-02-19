@@ -4,13 +4,23 @@ This module contains the function to generate a treemap.
 
 import bw2data
 from d3blocks import D3Blocks
+from typing import Union
 
 from .dataframe import get_geo_distribution_of_impacts
 from .utils import check_filepath
 
+try:
+    from bw2data.backends.peewee import Activity as PeeweeActivity
+except ImportError:
+    PeeweeActivity = None
+
+try: 
+    from bw2data.backends import Activity as BW25Activity
+except ImportError:
+    BW25Activity = None
 
 def treemap(
-    activity: bw2data.backends.peewee.proxies.Activity,
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
     cutoff: float = 0.0001,
     filepath: str = None,
@@ -35,7 +45,7 @@ def treemap(
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(
-        activity, bw2data.backends.peewee.proxies.Activity
+        activity, (PeeweeActivity, BW25Activity)
     ), "`activity` should be a brightway2 activity."
 
     # fetch unit of method

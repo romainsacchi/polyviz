@@ -5,7 +5,7 @@ the recursive calculation into a pandas dataframe.
 
 from collections import defaultdict
 from io import StringIO
-from typing import List
+from typing import List, Union
 
 import bw2data
 import numpy as np
@@ -13,6 +13,15 @@ import pandas as pd
 
 from .utils import calculate_lcia_score, get_gdp_per_country, get_region_definitions
 
+try:
+    from bw2data.backends.peewee import Activity as PeeweeActivity
+except ImportError:
+    PeeweeActivity = None
+
+try: 
+    from bw2data.backends import Activity as BW25Activity
+except ImportError:
+    BW25Activity = None
 
 def format_supply_chain_dataframe(
     results: List[List], amount: int = 1, flow_type: str = None
@@ -136,7 +145,7 @@ def add_country_column(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_geo_distribution_of_impacts(
-    activity: bw2data.backends.peewee.proxies.Activity,
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
     cutoff: float = 0.0001,
 ):
