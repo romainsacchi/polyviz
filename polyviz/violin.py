@@ -20,6 +20,9 @@ try:
 except ImportError:
     BW25Activity = None
 
+valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+
+
 def violin(
     activities: list,
     method: tuple,
@@ -43,7 +46,7 @@ def violin(
 
     for act in activities:
         assert isinstance(
-            act, Union[PeeweeActivity, BW25Activity]
+            act, valid_types
         ), "`activity` should be a brightway2 activity."
 
     def make_name(activities):

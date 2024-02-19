@@ -19,6 +19,9 @@ try:
 except ImportError:
     BW25Activity = None
 
+valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+
+
 def treemap(
     activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
@@ -45,7 +48,7 @@ def treemap(
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(
-        activity, (PeeweeActivity, BW25Activity)
+        activity, valid_types
     ), "`activity` should be a brightway2 activity."
 
     # fetch unit of method
