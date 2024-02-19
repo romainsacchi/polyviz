@@ -24,6 +24,8 @@ try:
 except ImportError:
     BW25Activity = None
 
+valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+
 
 def calculate_supply_chain(
     activity: Union[PeeweeActivity, BW25Activity],
@@ -41,7 +43,7 @@ def calculate_supply_chain(
     """
 
     assert isinstance(
-        activity, (PeeweeActivity, BW25Activity)
+        activity, valid_types
     ), "`activity` should be a brightway2 activity."
 
     amount = -1 if identify_waste_process(activity) else 1
@@ -76,7 +78,7 @@ def calculate_lcia_score(
     :return: LCIA score, C matrix, and reverse dictionary
     """
     assert isinstance(
-        activity, (PeeweeActivity, BW25Activity)
+        activity, valid_types
     ), "`activity` should be a brightway2 activity."
 
     print("Calculating LCIA score...")
@@ -117,7 +119,7 @@ def identify_waste_process(activity: Union[PeeweeActivity, BW25Activity]) -> boo
 
 
 def get_geo_distribution_of_impacts_for_choro_graph(
-    activity: (PeeweeActivity, BW25Activity),
+    activity: Union[PeeweeActivity, BW25Activity],
     method: tuple,
     cutoff: float = 0.0001,
 ) -> pd.DataFrame:
