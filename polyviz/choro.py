@@ -19,9 +19,8 @@ try:
     from bw2data.backends import Activity as BW25Activity
 except ImportError:
     BW25Activity = None
-    
-valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
 
+valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
 
 
 def choro(
