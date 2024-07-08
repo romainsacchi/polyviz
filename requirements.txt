@@ -1,7 +1,7 @@
 pandas
 numpy
 git+https://github.com/romainsacchi/d3blocks.git
-bw2io<=0.8.8
+bw2io
 bw2data
 bw2calc
 country_converter

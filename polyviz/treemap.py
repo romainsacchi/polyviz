@@ -11,20 +11,13 @@ from .dataframe import get_geo_distribution_of_impacts
 from .utils import check_filepath
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
-
-valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+    from bw2data.backends import Activity
 
 
 def treemap(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple,
     cutoff: float = 0.0001,
     filepath: str = None,
@@ -49,7 +42,7 @@ def treemap(
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(
-        activity, valid_types
+        activity, Activity
     ), "`activity` should be a brightway2 activity."
 
     # fetch unit of method

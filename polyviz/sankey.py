@@ -1,36 +1,35 @@
 """
 This module contains the code to generate a Sankey diagram for a given activity and method.
 """
+from typing import Optional, Tuple
 
 from typing import Union
 
 import bw2data
 from d3blocks import D3Blocks
+from pandas import DataFrame
 
 from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
-
+    from bw2data.backends import Activity
 
 def sankey(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple = None,
     flow_type: str = None,
+    amount: int = 1,
     level: int = 3,
     cutoff: float = 0.01,
     filepath: str = None,
     title: str = None,
     notebook: bool = False,
-) -> str:
+    labels_swap: dict = None,
+    figsize: tuple = None,
+) -> Optional[tuple[str, DataFrame]]:
     """
     Generate a Sankey diagram for a given activity and method.
     :param activity: Brightway2 activity
@@ -41,6 +40,8 @@ def sankey(
     :param filepath: Path to save the HTML file
     :param title: Title of the Sankey diagram
     :param notebook: Whether to display the Sankey diagram in a Jupyter notebook
+    :param labels_swap: Dictionary to swap labels in the diagram
+    :param figsize: Size of the figure
     :return: Path to the generated HTML file
     """
 
@@ -50,7 +51,13 @@ def sankey(
     title = title or f"{activity['name']} ({activity['unit']}, {activity['location']})"
     filepath = check_filepath(filepath, title, "sankey", method, flow_type)
 
-    result, amount = calculate_supply_chain(activity, method, level, cutoff)
+    result, amount = calculate_supply_chain(
+        activity=activity,
+        method=method,
+        level=level,
+        cutoff=cutoff,
+        amount=amount,
+    )
 
     if method:
         assert isinstance(method, tuple), "`method` should be a tuple."
@@ -66,18 +73,23 @@ def sankey(
 
     dataframe["unit"] = unit
 
-    if level != 3:
-        figsize = (800 / 3 * level, 600)
-    else:
-        figsize = (800, 600)
+    if figsize is None:
+        if level != 3:
+            figsize = (800 / 3 * level, 600)
+        else:
+            figsize = (800, 600)
 
     # dataframe should at least be 3 rows
     if len(dataframe) < 3:
         print("Not enough data to generate a Sankey diagram.")
         return
 
+    if labels_swap:
+        dataframe = dataframe.replace(labels_swap, regex=True)
+
     # Create a new D3Blocks object
     d3_graph = D3Blocks()
+
     d3_graph.sankey(
         df=dataframe[1:],
         link={"color": "source-target"},
@@ -87,4 +99,6 @@ def sankey(
         figsize=figsize,
     )
 
-    return str(filepath)
+    print("Sankey diagram generated.")
+
+    return str(filepath), dataframe

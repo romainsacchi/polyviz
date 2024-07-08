@@ -11,20 +11,13 @@ from .dataframe import distribute_region_impacts
 from .utils import check_filepath, get_geo_distribution_of_impacts_for_choro_graph
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
-
-valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+    from bw2data.backends import Activity
 
 
 def choro(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple,
     cutoff: float = 0.001,
     filepath: str = None,
@@ -49,8 +42,8 @@ def choro(
 
     assert isinstance(method, tuple), "`method` should be a tuple."
     assert isinstance(
-        activity, valid_types
-    ), "`activity` should be a brightway2 activity."
+        activity, Activity
+    ), "`activity` should be a Brightway activity."
 
     # fetch unit of method
     unit = bw2data.Method(method).metadata["unit"]

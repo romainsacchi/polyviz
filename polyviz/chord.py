@@ -11,18 +11,13 @@ from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
+    from bw2data.backends import Activity
 
 
 def chord(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple = None,
     flow_type: str = None,
     level: int = 3,

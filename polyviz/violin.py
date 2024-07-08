@@ -5,23 +5,23 @@ Violin plot for a given activity and method.
 from typing import Union
 
 import bw2data
+import numpy as np
 import pandas as pd
-from bw2calc.monte_carlo import MultiMonteCarlo
+import bw2calc
+
+try:
+    from bw2calc.monte_carlo import MultiMonteCarlo
+except ModuleNotFoundError:
+    MultiMonteCarlo = None
+
 from d3blocks import D3Blocks
 
 from .utils import check_filepath
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
-
-valid_types = tuple(filter(None, (PeeweeActivity, BW25Activity)))
+    from bw2data.backends import Activity
 
 
 def violin(
@@ -47,8 +47,8 @@ def violin(
 
     for act in activities:
         assert isinstance(
-            act, valid_types
-        ), "`activity` should be a brightway2 activity."
+            act, Activity
+        ), "`activity` should be a Brightway activity."
 
     def make_name(activities):
         """
@@ -65,22 +65,35 @@ def violin(
 
     filepath = check_filepath(filepath, title, "violin", method)
 
-    res = MultiMonteCarlo(
-        [{act: 1} for act in activities],
-        method,
-        iterations,
-    ).calculate()
+    if MultiMonteCarlo:
+        res = MultiMonteCarlo(
+            [{act: 1} for act in activities],
+            method,
+            iterations,
+        ).calculate()
+    else:
+        lca = bw2calc.LCA(
+            demand={activities[0]: 1},
+            method=method,
+            use_distributions=True
+        )
+        lca.lci()
+        lca.lcia()
+        res = np.zeros((len(activities), iterations))
+        for a, activity in enumerate(activities):
+            lca.lci({activity.id: 1})
+            res[a, :] = [lca.score for _ in zip(range(iterations), lca)]
 
     list_res = []
-    for _r, r in enumerate(res):
-        vals = r[1:]
+    for r in range(0, res.shape[0]):
+        vals = res[r, :]
         list_res.extend(
             [
                 [
                     v,
-                    f"{activities[_r]['name']} ({activities[_r]['location']})",
+                    f"{activities[r]['name']} ({activities[r]['location']})",
                 ]
-                for v in vals[0]
+                for v in vals
             ]
         )
 

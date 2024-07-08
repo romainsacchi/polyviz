@@ -4,25 +4,19 @@ This module contains the code to produce a force-directed graph.
 
 from typing import Union
 
-import bw2data
 from d3blocks import D3Blocks
 
 from .dataframe import format_supply_chain_dataframe
 from .utils import calculate_supply_chain, check_filepath
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
+    from bw2data.backends import Activity
 
 
 def force(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple,
     level: int = 3,
     cutoff: float = 0.01,

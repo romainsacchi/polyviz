@@ -4,7 +4,6 @@ the recursive calculation into a pandas dataframe.
 """
 
 from collections import defaultdict
-from io import StringIO
 from typing import List, Union
 
 import bw2data
@@ -14,14 +13,9 @@ import pandas as pd
 from .utils import calculate_lcia_score, get_gdp_per_country, get_region_definitions
 
 try:
-    from bw2data.backends.peewee import Activity as PeeweeActivity
+    from bw2data.backends.peewee import Activity
 except ImportError:
-    PeeweeActivity = None
-
-try:
-    from bw2data.backends import Activity as BW25Activity
-except ImportError:
-    BW25Activity = None
+    from bw2data.backends import Activity
 
 
 def format_supply_chain_dataframe(
@@ -148,7 +142,7 @@ def add_country_column(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_geo_distribution_of_impacts(
-    activity: Union[PeeweeActivity, BW25Activity],
+    activity: Activity,
     method: tuple,
     cutoff: float = 0.0001,
 ):
