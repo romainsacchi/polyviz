@@ -19,6 +19,7 @@ try:
 except ImportError:
     from bw2data.backends import Activity
 
+
 def calculate_supply_chain(
     activity: Activity,
     method: tuple,
@@ -35,9 +36,7 @@ def calculate_supply_chain(
     :return: a StringIO object and the reference amount
     """
 
-    assert isinstance(
-        activity, Activity
-    ), "`activity` should be a brightway2 activity."
+    assert isinstance(activity, Activity), "`activity` should be a brightway2 activity."
 
     amount = amount * -1 if identify_waste_process(activity) else amount
 
@@ -70,9 +69,7 @@ def calculate_lcia_score(
     :param method: tuple representing a Brightway2 method
     :return: LCIA score, C matrix, and reverse dictionary
     """
-    assert isinstance(
-        activity, Activity
-    ), "`activity` should be a brightway2 activity."
+    assert isinstance(activity, Activity), "`activity` should be a brightway2 activity."
 
     print("Calculating LCIA score...")
 

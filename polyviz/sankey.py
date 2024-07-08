@@ -1,9 +1,8 @@
 """
 This module contains the code to generate a Sankey diagram for a given activity and method.
 """
-from typing import Optional, Tuple
 
-from typing import Union
+from typing import Optional, Tuple, Union
 
 import bw2data
 from d3blocks import D3Blocks
@@ -16,6 +15,7 @@ try:
     from bw2data.backends.peewee import Activity
 except ImportError:
     from bw2data.backends import Activity
+
 
 def sankey(
     activity: Activity,

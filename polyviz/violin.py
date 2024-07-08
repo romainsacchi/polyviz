@@ -4,10 +4,10 @@ Violin plot for a given activity and method.
 
 from typing import Union
 
+import bw2calc
 import bw2data
 import numpy as np
 import pandas as pd
-import bw2calc
 
 try:
     from bw2calc.monte_carlo import MultiMonteCarlo
@@ -46,9 +46,7 @@ def violin(
     assert isinstance(method, tuple), "`method` should be a tuple."
 
     for act in activities:
-        assert isinstance(
-            act, Activity
-        ), "`activity` should be a Brightway activity."
+        assert isinstance(act, Activity), "`activity` should be a Brightway activity."
 
     def make_name(activities):
         """
@@ -73,9 +71,7 @@ def violin(
         ).calculate()
     else:
         lca = bw2calc.LCA(
-            demand={activities[0]: 1},
-            method=method,
-            use_distributions=True
+            demand={activities[0]: 1}, method=method, use_distributions=True
         )
         lca.lci()
         lca.lcia()
