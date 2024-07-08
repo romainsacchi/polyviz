@@ -1,8 +1,6 @@
 pandas
 numpy
 git+https://github.com/romainsacchi/d3blocks.git
-bw2io
-bw2data
-bw2calc
+brightway25
 country_converter
 pyyaml

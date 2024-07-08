@@ -42,9 +42,7 @@ setup(
     install_requires=[
         "pandas",
         "numpy",
-        "bw2io",
-        "bw2data",
-        "bw2calc",
+        "brightway25",
         "country_converter",
         "pyyaml",
     ],
