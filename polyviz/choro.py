@@ -41,9 +41,7 @@ def choro(
     filepath = check_filepath(filepath, title, "choro", method)
 
     assert isinstance(method, tuple), "`method` should be a tuple."
-    assert isinstance(
-        activity, Activity
-    ), "`activity` should be a Brightway activity."
+    assert isinstance(activity, Activity), "`activity` should be a Brightway activity."
 
     # fetch unit of method
     unit = bw2data.Method(method).metadata["unit"]

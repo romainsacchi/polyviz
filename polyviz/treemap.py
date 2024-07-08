@@ -41,9 +41,7 @@ def treemap(
     filepath = check_filepath(filepath, title, "treemap", method)
 
     assert isinstance(method, tuple), "`method` should be a tuple."
-    assert isinstance(
-        activity, Activity
-    ), "`activity` should be a brightway2 activity."
+    assert isinstance(activity, Activity), "`activity` should be a brightway2 activity."
 
     # fetch unit of method
     unit = bw2data.Method(method).metadata["unit"]
