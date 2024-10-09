@@ -42,7 +42,6 @@ setup(
     install_requires=[
         "pandas",
         "numpy",
-        "brightway25",
         "bw_simapro_csv",
         "country_converter",
         "pyyaml",

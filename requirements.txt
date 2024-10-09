@@ -1,7 +1,6 @@
 pandas
 numpy
 git+https://github.com/romainsacchi/d3blocks.git
-brightway25
 bw_simapro_csv
 country_converter
 pyyaml
