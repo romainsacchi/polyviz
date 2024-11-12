@@ -34,7 +34,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="polyviz",
-    version="1.0.2",
+    version="1.0.3",
     packages=packages,
     author="Romain Sacchi <romain.sacchi@psi.ch>",
     license=open("LICENSE").read(),
