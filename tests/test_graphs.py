@@ -10,7 +10,7 @@ bw2data.projects.set_current("polyviz")
 
 if "Mobility example" in bw2data.databases:
     del bw2data.databases["Mobility example"]
-bw2io.bw2setup()
+# bw2io.bw2setup()
 bw2io.add_example_database()
 
 method = ("IPCC", "simple")
