@@ -34,7 +34,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="polyviz",
-    version="1.0.3",
+    version="1.0.4",
     packages=packages,
     author="Romain Sacchi <romain.sacchi@psi.ch>",
     license=open("LICENSE").read(),
@@ -42,7 +42,6 @@ setup(
     install_requires=[
         "pandas",
         "numpy",
-        "bw_simapro_csv",
         "country_converter",
         "pyyaml",
     ],
