@@ -44,6 +44,7 @@ setup(
         "numpy",
         "country_converter",
         "pyyaml",
+        "d3blocks @ git+https://github.com/romainsacchi/d3blocks.git"
     ],
     dependency_links=["https://github.com/romainsacchi/d3blocks"],
     url="https://github.com/romainsacchi/polyviz",
